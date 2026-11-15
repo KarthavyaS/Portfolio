@@ -6,10 +6,12 @@ import Hero from "@/components/Hero";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import ExperienceSection from "@/components/ExperienceSection";
+import MomentsShowcase from "@/components/MomentsShowcase";
 import ContactSection from "@/components/ContactSection";
 import RecruiterModeView from "@/components/RecruiterModeView";
 import CommandPalette from "@/components/CommandPalette";
 import EasterEggTerminal from "@/components/EasterEggTerminal";
+import TechBackgroundAnimation from "@/components/TechBackgroundAnimation";
 
 export default function Home() {
   const [recruiterMode, setRecruiterMode] = useState(false);
@@ -45,7 +47,10 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#06070a] text-slate-100 selection:bg-purple-600 selection:text-white overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#06070a] text-slate-100 selection:bg-purple-600 selection:text-white overflow-x-hidden relative">
+      {/* Subtle Tech Animated Background (Floating code particles & circuit nodes) */}
+      <TechBackgroundAnimation />
+
       {/* Sticky Navbar */}
       <Navbar
         recruiterMode={recruiterMode}
@@ -67,6 +72,9 @@ export default function Home() {
 
         {/* Experience & Education Vertical Timeline */}
         <ExperienceSection />
+
+        {/* Life in Tech & Hackathon Moments Showcase */}
+        <MomentsShowcase />
 
         {/* Contact Form & Direct Links */}
         <ContactSection onOpenTerminal={() => setIsTerminalOpen(true)} />

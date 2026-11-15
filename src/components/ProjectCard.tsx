@@ -87,11 +87,11 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
         </p>
 
         {/* Tech Stack Chips */}
-        <div className="flex flex-wrap gap-1.5 mt-4">
+        <div className="flex flex-wrap gap-2 mt-4">
           {project.techStack.map((tech) => (
             <span
               key={tech}
-              className="text-xs font-medium px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300 hover:border-purple-500/30 transition-colors"
+              className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-200 hover:border-purple-500/40 hover:bg-white/10 transition-colors"
             >
               {tech}
             </span>

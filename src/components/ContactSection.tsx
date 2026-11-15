@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check, Terminal, ExternalLink } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "./SocialIcons";
+import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check, Terminal } from "lucide-react";
+import { GithubIcon, LinkedinIcon, LeetcodeIcon } from "./SocialIcons";
 import { portfolioData } from "@/data/portfolio";
 
 interface ContactSectionProps {
@@ -11,14 +11,15 @@ interface ContactSectionProps {
 }
 
 export default function ContactSection({ onOpenTerminal }: ContactSectionProps) {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    linkedin: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [resultData, setResultData] = useState<{
-    deliveredViaService?: boolean;
-    mailtoUrl?: string;
-    recipientEmail?: string;
-  } | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -40,6 +41,10 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
       setErrorMsg("Please enter a valid email address.");
       return;
     }
+    if (!formData.phone.trim()) {
+      setErrorMsg("Please enter your contact number / phone.");
+      return;
+    }
     if (formData.message.trim().length < 5) {
       setErrorMsg("Please enter a message with at least 5 characters.");
       return;
@@ -55,17 +60,12 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
       const data = await res.json();
       if (data.success) {
         setSubmitted(true);
-        setResultData(data);
-        if (!data.deliveredViaService && data.mailtoUrl) {
-          // Open user's email client directly with drafted message
-          window.location.href = data.mailtoUrl;
-        }
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", linkedin: "", message: "" });
       } else {
         setErrorMsg(data.error || "Failed to send message. Please try again.");
       }
     } catch {
-      setErrorMsg("Could not reach the server. Please try emailing directly.");
+      setErrorMsg("Could not reach the server. Please try again or reach out directly on LinkedIn / GitHub.");
     } finally {
       setIsSubmitting(false);
     }
@@ -94,7 +94,7 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
               Direct Contact Channels
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Feel free to reach out directly via email, connect on LinkedIn, or review my repositories on GitHub.
+              Feel free to reach out directly via email, connect on LinkedIn, or review my code on GitHub &amp; LeetCode.
             </p>
 
             {/* Email pill with copy button */}
@@ -118,25 +118,35 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
               </button>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-3 pt-2">
+            {/* Social Links: GitHub, LeetCode, LinkedIn */}
+            <div className="grid grid-cols-3 gap-2.5 pt-2">
               <a
                 href={portfolioData.personal.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-200 hover:text-white hover:border-purple-500/50 hover:bg-purple-500/10 transition-all uppercase tracking-wider"
+                className="flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-200 hover:text-white hover:border-purple-500/50 hover:bg-purple-500/10 transition-all uppercase tracking-wider"
               >
-                <GithubIcon className="w-4 h-4" />
+                <GithubIcon className="w-3.5 h-3.5" />
                 <span>GitHub</span>
+              </a>
+
+              <a
+                href={portfolioData.personal.leetcode}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-amber-300 hover:text-white hover:border-amber-500/50 hover:bg-amber-500/10 transition-all uppercase tracking-wider"
+              >
+                <LeetcodeIcon className="w-3.5 h-3.5 text-amber-400" />
+                <span>LeetCode</span>
               </a>
 
               <a
                 href={portfolioData.personal.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-200 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all uppercase tracking-wider"
+                className="flex items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 border border-white/10 text-xs font-bold text-slate-200 hover:text-white hover:border-blue-500/50 hover:bg-blue-500/10 transition-all uppercase tracking-wider"
               >
-                <LinkedinIcon className="w-4 h-4 text-blue-400" />
+                <LinkedinIcon className="w-3.5 h-3.5 text-blue-400" />
                 <span>LinkedIn</span>
               </a>
             </div>
@@ -159,62 +169,28 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
           )}
         </div>
 
-        {/* Right Column: Contact Form */}
+        {/* Right Column: In-Browser Contact Form */}
         <div className="lg:col-span-7">
           <div className="p-7 sm:p-9 rounded-2xl bg-[#0c0f17]/90 border border-white/10 shadow-xl relative">
             {submitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="py-10 text-center flex flex-col items-center space-y-4"
+                className="py-12 text-center flex flex-col items-center space-y-4"
               >
-                <div className="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-                  <CheckCircle2 className="w-8 h-8" />
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                  <CheckCircle2 className="w-9 h-9" />
                 </div>
-                <h3 className="text-xl font-bold text-white font-display">
-                  {resultData?.deliveredViaService
-                    ? "Message Delivered to Karthavya's Inbox!"
-                    : "Message Prepared for Karthavya's Inbox!"}
+                <h3 className="text-2xl font-bold text-white font-display">
+                  Message Sent Successfully!
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 max-w-md leading-relaxed">
-                  {resultData?.deliveredViaService ? (
-                    <>
-                      Your message has been delivered directly to{" "}
-                      <span className="text-purple-300 font-mono">
-                        {portfolioData.personal.email}
-                      </span>
-                      . Karthavya will review it and reply to your email address shortly.
-                    </>
-                  ) : (
-                    <>
-                      Your message has been addressed to{" "}
-                      <span className="text-purple-300 font-mono">
-                        {portfolioData.personal.email}
-                      </span>
-                      . If your email app did not open automatically, click the button below to send it directly!
-                    </>
-                  )}
+                  Thank you for reaching out! Your message has been received. Karthavya will review your note and respond to your email promptly.
                 </p>
 
-                {resultData?.mailtoUrl && (
-                  <a
-                    href={resultData.mailtoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider text-white glow-gradient-pill transition-all mt-2 shadow-lg"
-                  >
-                    <Mail className="w-4 h-4" />
-                    <span>Send via Email Client</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                )}
-
                 <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setResultData(null);
-                  }}
-                  className="mt-3 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-colors"
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 hover:bg-white/15 text-slate-200 border border-white/15 transition-all shadow-sm"
                 >
                   Send another message
                 </button>
@@ -223,35 +199,67 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    Your Name
+                    Your Name <span className="text-purple-400">*</span>
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="e.g. Rahul Sharma"
+                    placeholder="e.g. Priya Sharma"
                     required
                     className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                   />
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Email Address <span className="text-purple-400">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="e.g. priya@company.com"
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                      Contact Number <span className="text-purple-400">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="e.g. +91 98765 43210"
+                      required
+                      className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
+                    />
+                  </div>
+                </div>
+
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    Email Address
-                  </label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">
+                      LinkedIn Profile
+                    </label>
+                    <span className="text-[11px] font-medium text-slate-500">Optional</span>
+                  </div>
                   <input
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="e.g. rahul@company.com"
-                    required
+                    type="url"
+                    value={formData.linkedin}
+                    onChange={(e) => setFormData({ ...formData, linkedin: e.target.value })}
+                    placeholder="https://linkedin.com/in/your-profile"
                     className="w-full px-4 py-3 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-slate-500 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
-                    Message
+                    Message <span className="text-purple-400">*</span>
                   </label>
                   <textarea
                     rows={4}
@@ -273,10 +281,10 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
                   className="w-full py-3.5 rounded-xl text-xs sm:text-sm font-bold uppercase tracking-wider text-white glow-gradient-pill flex items-center justify-center gap-2 hover:opacity-95 transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? (
-                    <span>Dispatching message...</span>
+                    <span>Sending message...</span>
                   ) : (
                     <>
-                      <span>Send Message to Karthavya</span>
+                      <span>Send Message</span>
                       <Send className="w-4 h-4" />
                     </>
                   )}
@@ -288,11 +296,8 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
       </div>
 
       {/* Footer */}
-      <footer className="mt-20 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <footer className="mt-20 pt-8 border-t border-white/5 text-center text-xs text-slate-500">
         <p>&copy; 2026 Karthavya S. All rights reserved.</p>
-        <p className="flex items-center gap-2">
-          <span>Built with Next.js 16, Tailwind CSS &amp; Framer Motion.</span>
-        </p>
       </footer>
     </section>
   );

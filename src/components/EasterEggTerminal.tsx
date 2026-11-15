@@ -127,6 +127,7 @@ export default function EasterEggTerminal({ isOpen, onClose }: EasterEggTerminal
             <p className="text-purple-300 font-bold">Get In Touch:</p>
             <p>Email: <span className="text-emerald-400">{portfolioData.personal.email}</span></p>
             <p>GitHub: <span className="text-blue-400">{portfolioData.personal.github}</span></p>
+            <p>LeetCode: <span className="text-amber-400">{portfolioData.personal.leetcode}</span></p>
             <p>LinkedIn: <span className="text-blue-400">{portfolioData.personal.linkedin}</span></p>
           </div>
         );

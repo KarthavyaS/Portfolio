@@ -25,7 +25,7 @@ export default function ProjectsSection() {
           <span>Engineering Showcase</span>
         </div>
         <h2 className="text-3xl sm:text-5xl font-display font-black text-white tracking-tight uppercase">
-          Featured Projects &amp; Research
+          Projects &amp; Research
         </h2>
         <p className="text-sm sm:text-base text-slate-400 max-w-2xl mt-3">
           Deep dives into AI models, accessibility platforms, logic engines, and data analytics systems.

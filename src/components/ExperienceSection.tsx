@@ -57,8 +57,12 @@ export default function ExperienceSection() {
               </span>
             </div>
 
-            {/* Card Content */}
-            <div className="p-6 rounded-2xl bg-[#0c0f17]/90 border border-white/10 group-hover:border-purple-500/40 transition-colors shadow-lg">
+            {/* Card Content with Touch Highlight & Pop Animation */}
+            <motion.div
+              whileHover={{ scale: 1.015 }}
+              whileTap={{ scale: 0.985 }}
+              className="p-6 rounded-2xl bg-[#0c0f17]/90 border border-white/10 group-hover:border-purple-500/40 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10 active:border-purple-400 transition-all duration-300 cursor-pointer"
+            >
               {/* Mobile Period */}
               <div className="sm:hidden flex items-center gap-2 text-xs font-bold text-purple-400 font-mono mb-2">
                 <Calendar className="w-3.5 h-3.5" />
@@ -94,7 +98,7 @@ export default function ExperienceSection() {
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         ))}
 
@@ -106,7 +110,7 @@ export default function ExperienceSection() {
           transition={{ duration: 0.5 }}
           className="relative pl-6 sm:pl-8 group"
         >
-          <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0c0f17] border border-blue-500/50 flex items-center justify-center shadow-lg">
+          <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0c0f17] border border-blue-500/50 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:border-blue-400 transition-transform">
             <GraduationCap className="w-5 h-5 text-blue-400" />
           </div>
 
@@ -116,7 +120,11 @@ export default function ExperienceSection() {
             </span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0f17]/90 border border-white/10 shadow-lg">
+          <motion.div
+            whileHover={{ scale: 1.015 }}
+            whileTap={{ scale: 0.985 }}
+            className="p-6 rounded-2xl bg-[#0c0f17]/90 border border-white/10 group-hover:border-purple-500/40 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10 active:border-purple-400 transition-all duration-300 cursor-pointer"
+          >
             <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-2">
               Schooling &amp; Academic Honors
             </h3>
@@ -140,7 +148,7 @@ export default function ExperienceSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

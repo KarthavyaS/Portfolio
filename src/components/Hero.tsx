@@ -2,9 +2,8 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { ArrowUpRight, Sparkles, Terminal } from "lucide-react";
-import { GithubIcon } from "./SocialIcons";
-import MagneticButton from "./MagneticButton";
+import { ArrowDown, Sparkles } from "lucide-react";
+import { GithubIcon, LeetcodeIcon } from "./SocialIcons";
 import { portfolioData } from "@/data/portfolio";
 
 interface HeroProps {
@@ -16,6 +15,16 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [canParallax, setCanParallax] = useState(false);
   const [isCtaHovered, setIsCtaHovered] = useState(false);
+  const [isReacting, setIsReacting] = useState(false);
+  const reactionTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const triggerReaction = () => {
+    setIsReacting(true);
+    if (reactionTimerRef.current) clearTimeout(reactionTimerRef.current);
+    reactionTimerRef.current = setTimeout(() => {
+      setIsReacting(false);
+    }, 2800);
+  };
 
   // Parallax motion values
   const mouseX = useMotionValue(0);
@@ -29,8 +38,8 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
   // 3D transforms for avatar
   const rotateX = useTransform(smoothMouseY, [-0.5, 0.5], [10, -10]);
   const rotateY = useTransform(smoothMouseX, [-0.5, 0.5], [-14, 14]);
-  const avatarTranslateX = useTransform(smoothMouseX, [-0.5, 0.5], [-16, 16]);
-  const avatarTranslateY = useTransform(smoothMouseY, [-0.5, 0.5], [-12, 12]);
+  const avatarTranslateX = useTransform(smoothMouseX, [-0.5, 0.5], [-14, 14]);
+  const avatarTranslateY = useTransform(smoothMouseY, [-0.5, 0.5], [-10, 10]);
 
   useEffect(() => {
     const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
@@ -54,6 +63,7 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
 
   const handleCtaHover = (hovered: boolean) => {
     setIsCtaHovered(hovered);
+    if (hovered) triggerReaction();
     if (onCtaHoverChange) onCtaHoverChange(hovered);
   };
 
@@ -66,11 +76,17 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
       style={{ perspective: "1000px" }}
       aria-label="Hero Introduction"
     >
-      {/* Atmospheric lighting glows */}
+      {/* Atmospheric lighting glows and animated ambient stars */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[680px] h-[360px] bg-purple-600/15 rounded-full blur-[140px]" />
         <div className="absolute bottom-1/4 right-1/4 w-[420px] h-[420px] bg-blue-600/10 rounded-full blur-[130px]" />
         <div className="absolute top-1/2 right-1/3 w-[360px] h-[360px] bg-pink-600/10 rounded-full blur-[130px]" />
+
+        {/* Ambient floating tech sparks */}
+        <div className="absolute top-20 left-1/4 w-1.5 h-1.5 rounded-full bg-purple-400 animate-ping opacity-60" />
+        <div className="absolute top-48 right-1/5 w-2 h-2 rounded-full bg-cyan-400 animate-pulse opacity-70" />
+        <div className="absolute bottom-32 left-1/3 w-1.5 h-1.5 rounded-full bg-pink-400 animate-ping opacity-50" />
+        <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse opacity-60" />
       </div>
 
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center relative z-20">
@@ -117,105 +133,181 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
               <span>⚡</span> CGPA {portfolioData.personal.cgpa}/10
             </span>
           </div>
-        </motion.div>
 
-        {/* Right Side: Avatar + Contact & Other Buttons Below Avatar (lg:col-span-5) */}
-        <div className="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
-          {/* 3D Interactive Avatar */}
-          <motion.div
-            initial={{ scale: 0.9, y: 20 }}
-            animate={{
-              scale: isCtaHovered ? 1.05 : 1,
-              y: isCtaHovered ? -6 : 0,
-              rotate: isCtaHovered ? -2 : 0,
-            }}
-            transition={{
-              type: "spring",
-              damping: 18,
-              stiffness: 140,
-            }}
-            style={
-              canParallax
-                ? {
-                    rotateX,
-                    rotateY,
-                    x: avatarTranslateX,
-                    y: avatarTranslateY,
-                    transformStyle: "preserve-3d",
-                  }
-                : undefined
-            }
-            whileHover={canParallax ? { scale: 1.03 } : undefined}
-            className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[410px] lg:h-[410px] transition-transform"
-          >
-            {/* Ambient backlight glow behind avatar */}
-            <div
-              className={`absolute inset-4 rounded-full bg-gradient-to-tr from-purple-600/35 via-pink-500/25 to-transparent blur-2xl -z-10 transition-opacity duration-300 ${
-                isCtaHovered ? "opacity-100 scale-110" : "opacity-80"
-              }`}
-            />
-
-            {/* Avatar playful reaction indicator */}
-            {isCtaHovered && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.6, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                className="absolute top-2 right-4 bg-purple-500/90 text-white text-[11px] font-bold px-2.5 py-1 rounded-full shadow-lg backdrop-blur-md flex items-center gap-1 z-30"
-              >
-                <Sparkles className="w-3 h-3 text-yellow-300 animate-spin" />
-                <span>Let&apos;s talk!</span>
-              </motion.div>
-            )}
-
-            {/* Avatar Image */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/avatar.png"
-              alt="3D cartoon avatar of Karthavya"
-              className="w-full h-full object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.85)] filter"
-            />
-          </motion.div>
-
-          {/* Contact and Other Buttons BELOW ME (Below Avatar) */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-6 sm:mt-8 z-30">
-            {/* Magnetic Contact CTA */}
-            <div
-              onMouseEnter={() => handleCtaHover(true)}
-              onMouseLeave={() => handleCtaHover(false)}
+          {/* Action Buttons: 3 buttons in one div in one line below intro in phone mode (lg:hidden) */}
+          <div className="flex lg:hidden items-center justify-center gap-2 sm:gap-2.5 mt-6 z-30 w-full max-w-xl flex-nowrap">
+            {/* Explore Projects Button */}
+            <a
+              href="#projects"
+              onTouchStart={triggerReaction}
+              onClick={triggerReaction}
+              className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide text-white bg-gradient-to-r from-purple-600 to-indigo-600 border border-purple-400/40 hover:from-purple-500 hover:to-indigo-500 hover:border-purple-300 shadow-md shadow-purple-500/20 transition-all cursor-pointer group shrink-0"
+              title="Jump to Featured Projects"
             >
-              <MagneticButton href="#contact" strength={0.4}>
-                <div className="group relative flex items-center gap-2 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider text-white glow-gradient-pill transition-all duration-300 shadow-lg shadow-purple-600/20">
-                  <span>Contact me</span>
-                  <span className="p-1 rounded-full bg-white/20 group-hover:bg-white/30 group-hover:rotate-45 transition-transform duration-300">
-                    <ArrowUpRight className="w-4 h-4 text-white" />
-                  </span>
-                </div>
-              </MagneticButton>
-            </div>
+              <span>Explore Projects</span>
+              <ArrowDown className="w-3.5 h-3.5 text-purple-200 group-hover:translate-y-0.5 transition-transform" />
+            </a>
 
             {/* GitHub Button */}
             <a
               href={portfolioData.personal.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4.5 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-200 bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 hover:text-white transition-all shadow-sm"
-              title="View GitHub Profile"
+              className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide text-slate-200 bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 hover:text-white transition-all shadow-sm shrink-0"
+              title="View GitHub Profile (@KarthavyaS)"
             >
-              <GithubIcon className="w-4 h-4" />
+              <GithubIcon className="w-3.5 h-3.5" />
               <span>GitHub</span>
             </a>
 
-            {/* CLI / Terminal Button */}
-            {onOpenTerminal && (
-              <button
-                onClick={onOpenTerminal}
-                className="flex items-center gap-1.5 px-4 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-white transition-all shadow-sm"
-                title="Launch Interactive Terminal"
+            {/* LeetCode Button */}
+            <a
+              href={portfolioData.personal.leetcode}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 sm:px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 hover:border-amber-500/50 hover:text-white transition-all shadow-sm shrink-0"
+              title="View LeetCode Profile (@karthavya_s)"
+            >
+              <LeetcodeIcon className="w-3.5 h-3.5 text-amber-400" />
+              <span>LeetCode</span>
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Right Side: Avatar with Interactive Animation Above Head + Buttons Below Avatar on Desktop (lg:col-span-5) */}
+        <div className="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2">
+          {/* Avatar Container */}
+          <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-96 md:h-96 lg:w-[410px] lg:h-[410px] flex items-center justify-center">
+            
+            {/* Animated Floating Speech Badge Above Head (Always visible & animated on Mobile & Desktop) */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{
+                opacity: 1,
+                y: isReacting ? -10 : [0, -6, 0],
+                scale: isReacting ? 1.08 : 1,
+              }}
+              transition={
+                isReacting
+                  ? { type: "spring", stiffness: 350, damping: 15 }
+                  : { duration: 2.6, repeat: Infinity, ease: "easeInOut" }
+              }
+              onClick={triggerReaction}
+              onTouchStart={triggerReaction}
+              className="absolute -top-4 sm:-top-6 left-1/2 -translate-x-1/2 z-30 cursor-pointer pointer-events-auto"
+              title="Click or tap to react!"
+            >
+              <div
+                className={`px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full shadow-xl backdrop-blur-md border text-[11px] sm:text-xs font-bold flex items-center gap-1.5 transition-all duration-300 ${
+                  isReacting
+                    ? "bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 text-white border-white/40 shadow-purple-500/50 scale-105"
+                    : "bg-[#0c0f17]/90 text-purple-200 border-purple-500/40 shadow-black/80 hover:border-purple-400"
+                }`}
               >
-                <Terminal className="w-4 h-4 text-purple-400" />
-                <span className="font-mono text-xs">&gt;_ CLI</span>
-              </button>
-            )}
+                <Sparkles
+                  className={`w-3.5 h-3.5 ${
+                    isReacting
+                      ? "text-yellow-300 animate-spin"
+                      : "text-yellow-400 animate-pulse"
+                  }`}
+                />
+                <span className="whitespace-nowrap">
+                  {isReacting ? "Let's explore! 🚀" : "Explore my work! ✨"}
+                </span>
+              </div>
+              {/* Bubble pointer */}
+              <div
+                className={`w-2 h-2 rotate-45 mx-auto -mt-1 border-r border-b transition-colors duration-300 ${
+                  isReacting
+                    ? "bg-pink-600 border-white/40"
+                    : "bg-[#0c0f17] border-purple-500/40"
+                }`}
+              />
+            </motion.div>
+
+            {/* 3D Interactive Avatar */}
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{
+                scale: isReacting || isCtaHovered ? 1.05 : 1,
+                y: isReacting || isCtaHovered ? -6 : 0,
+                rotate: isReacting || isCtaHovered ? -2 : 0,
+              }}
+              transition={{
+                type: "spring",
+                damping: 18,
+                stiffness: 140,
+              }}
+              style={
+                canParallax
+                  ? {
+                      rotateX,
+                      rotateY,
+                      x: avatarTranslateX,
+                      y: avatarTranslateY,
+                      transformStyle: "preserve-3d",
+                    }
+                  : undefined
+              }
+              whileHover={canParallax ? { scale: 1.03 } : undefined}
+              onClick={triggerReaction}
+              onTouchStart={triggerReaction}
+              className="relative w-full h-full transition-transform z-10 cursor-pointer"
+            >
+              {/* Ambient backlight glow behind avatar */}
+              <div
+                className={`absolute inset-4 rounded-full bg-gradient-to-tr from-purple-600/35 via-pink-500/25 to-transparent blur-2xl -z-10 transition-opacity duration-300 ${
+                  isReacting || isCtaHovered ? "opacity-100 scale-110" : "opacity-80"
+                }`}
+              />
+
+              {/* Avatar Image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/avatar.png"
+                alt="3D cartoon avatar of Karthavya"
+                className="w-full h-full object-contain drop-shadow-[0_20px_45px_rgba(0,0,0,0.85)] filter"
+              />
+            </motion.div>
+          </div>
+
+          {/* Action Buttons: 3 buttons in one div in one line below avatar on desktop (hidden on phone, lg:flex) */}
+          <div className="hidden lg:flex items-center justify-center gap-2.5 sm:gap-3 mt-6 sm:mt-8 z-30 flex-nowrap">
+            {/* Explore Projects Button */}
+            <a
+              href="#projects"
+              onMouseEnter={() => handleCtaHover(true)}
+              onMouseLeave={() => handleCtaHover(false)}
+              className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-white bg-gradient-to-r from-purple-600 to-indigo-600 border border-purple-400/40 hover:from-purple-500 hover:to-indigo-500 hover:border-purple-300 shadow-md shadow-purple-500/20 transition-all cursor-pointer group shrink-0"
+              title="Jump to Featured Projects"
+            >
+              <span>Explore Projects</span>
+              <ArrowDown className="w-3.5 h-3.5 text-purple-200 group-hover:translate-y-0.5 transition-transform" />
+            </a>
+
+            {/* GitHub Button */}
+            <a
+              href={portfolioData.personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-slate-200 bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 hover:text-white transition-all shadow-sm shrink-0"
+              title="View GitHub Profile (@KarthavyaS)"
+            >
+              <GithubIcon className="w-3.5 h-3.5" />
+              <span>GitHub</span>
+            </a>
+
+            {/* LeetCode Button */}
+            <a
+              href={portfolioData.personal.leetcode}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide text-amber-300 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 hover:border-amber-500/50 hover:text-white transition-all shadow-sm shrink-0"
+              title="View LeetCode Profile (@karthavya_s)"
+            >
+              <LeetcodeIcon className="w-3.5 h-3.5 text-amber-400" />
+              <span>LeetCode</span>
+            </a>
           </div>
         </div>
       </div>
