@@ -76,10 +76,14 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
       <div className="flex flex-col items-center text-center mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs font-semibold text-purple-300 mb-3">
           <MessageSquare className="w-3.5 h-3.5" />
+          <span className="font-display text-[9px] tracking-wider text-purple-400/80">05</span>
+          <span className="text-slate-500/60">{"//"}</span>
           <span>Let&apos;s Connect</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-white uppercase pixel-text-glow">
-          Get In Touch
+        <h2 className="text-lg sm:text-xl md:text-2xl font-display text-white uppercase pixel-text-glow">
+          <span className="glitch" data-text="Get In Touch">
+            Get In Touch
+          </span>
         </h2>
         <div className="pixel-divider w-20 mx-auto mt-4" aria-hidden="true" />
         <p className="text-sm sm:text-base text-slate-400 max-w-xl mt-3">
@@ -182,7 +186,7 @@ export default function ContactSection({ onOpenTerminal }: ContactSectionProps) 
                 <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20">
                   <CheckCircle2 className="w-9 h-9" />
                 </div>
-                <h3 className="text-xl font-display text-white">
+                <h3 className="text-base sm:text-lg font-display text-white leading-relaxed">
                   Message Sent Successfully!
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-300 max-w-md leading-relaxed">

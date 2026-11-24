@@ -12,6 +12,10 @@ import RecruiterModeView from "@/components/RecruiterModeView";
 import CommandPalette from "@/components/CommandPalette";
 import EasterEggTerminal from "@/components/EasterEggTerminal";
 import TechBackgroundAnimation from "@/components/TechBackgroundAnimation";
+import PixelParticles from "@/components/PixelParticles";
+import PixelCursor from "@/components/PixelCursor";
+import BootIntro from "@/components/BootIntro";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export default function Home() {
   const [recruiterMode, setRecruiterMode] = useState(false);
@@ -48,8 +52,15 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen text-slate-100 selection:bg-purple-600 selection:text-white overflow-x-hidden relative">
+      {/* Cinematic start screen (once per session, skipped for ATS view) */}
+      <BootIntro />
+
+      {/* Custom pixel cursor for fine pointers */}
+      <PixelCursor />
+
       {/* Subtle Tech Animated Background (Floating code particles & circuit nodes) */}
       <TechBackgroundAnimation />
+      <PixelParticles />
 
       {/* Sticky Navbar */}
       <Navbar
@@ -93,6 +104,9 @@ export default function Home() {
         isOpen={isTerminalOpen}
         onClose={() => setIsTerminalOpen(false)}
       />
+
+      {/* Bottom HUD: run progress + score */}
+      <ScrollProgress />
     </div>
   );
 }

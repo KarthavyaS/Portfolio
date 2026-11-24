@@ -68,7 +68,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 Case Study
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-display text-white tracking-tight">
+            <h2 className="text-base sm:text-lg font-display text-white tracking-tight leading-relaxed">
               {project.title}
             </h2>
             <p className="text-sm font-semibold text-purple-400 mt-1">

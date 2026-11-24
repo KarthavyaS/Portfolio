@@ -82,7 +82,7 @@ export default function ExperienceGalleryPage() {
             <span>Captured Live &amp; Unfiltered</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display text-white uppercase pixel-text-glow">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-display text-white uppercase pixel-text-glow">
             Experience &amp; <br />
             <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-amber-300 bg-clip-text text-transparent">
               Hackathon Moments

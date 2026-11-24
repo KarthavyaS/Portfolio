@@ -50,7 +50,7 @@ export default function Navbar({
         </a>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-4 lg:gap-6 text-xs lg:text-sm font-medium uppercase tracking-wider text-indigo-200/80">
+        <nav className="hidden lg:flex items-center gap-4 lg:gap-6 text-sm lg:text-base font-medium uppercase tracking-wider text-indigo-200/80">
           {portfolioData.navItems.map((item) => (
             <a
               key={item.label}
@@ -63,12 +63,12 @@ export default function Navbar({
         </nav>
 
         {/* Actions in one single navbar row (Recruiter, Resume, CLI) */}
-        <div className="hidden md:flex items-center gap-2 lg:gap-2.5 shrink-0 flex-nowrap">
+        <div className="hidden lg:flex items-center gap-2 lg:gap-2.5 shrink-0 flex-nowrap">
           {/* Recruiter Mode Toggle */}
           {onToggleRecruiterMode && (
             <button
               onClick={onToggleRecruiterMode}
-              className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all border cursor-pointer shrink-0 ${
+              className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider transition-all border cursor-pointer shrink-0 ${
                 recruiterMode
                   ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/50 shadow-sm shadow-emerald-500/20"
                   : "bg-indigo-400/10 text-slate-300 border-indigo-300/20 hover:border-emerald-500/40 hover:text-white"
@@ -85,7 +85,7 @@ export default function Navbar({
             href={portfolioData.personal.resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider text-purple-200 bg-purple-500/15 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/25 hover:text-white transition-all shadow-sm shrink-0"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold uppercase tracking-wider text-purple-200 bg-purple-500/15 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/25 hover:text-white transition-all shadow-sm shrink-0"
           >
             <FileText className="w-3.5 h-3.5 text-purple-400" />
             <span>Resume</span>
@@ -95,7 +95,7 @@ export default function Navbar({
           {onOpenTerminal && (
             <button
               onClick={onOpenTerminal}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-mono text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/20 hover:text-white transition-all shadow-sm cursor-pointer shrink-0 ml-1"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-mono text-purple-300 bg-purple-500/10 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/20 hover:text-white transition-all shadow-sm cursor-pointer shrink-0 ml-1"
               title="Launch Interactive Terminal"
             >
               <Terminal className="w-3.5 h-3.5 text-purple-400" />
@@ -105,7 +105,7 @@ export default function Navbar({
         </div>
 
         {/* Mobile / Tablet Menu Button */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex lg:hidden items-center gap-2">
           {onOpenTerminal && (
             <button
               onClick={onOpenTerminal}
@@ -141,7 +141,7 @@ export default function Navbar({
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-b border-indigo-300/20 bg-[#0e1235]/95 backdrop-blur-xl px-4 py-6"
+            className="lg:hidden border-b border-indigo-300/20 bg-[#0e1235]/95 backdrop-blur-xl px-4 py-6"
           >
             <div className="flex flex-col gap-4">
               {portfolioData.navItems.map((item) => (

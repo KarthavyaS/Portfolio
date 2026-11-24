@@ -24,10 +24,14 @@ export default function ExperienceSection() {
       <div className="flex flex-col items-center text-center mb-16">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-xs font-semibold text-purple-300 mb-3">
           <GraduationCap className="w-3.5 h-3.5" />
+          <span className="font-display text-[9px] tracking-wider text-purple-400/80">03</span>
+          <span className="text-slate-500/60">{"//"}</span>
           <span>Timeline &amp; Milestones</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-white uppercase pixel-text-glow">
-          Education &amp; Experience
+        <h2 className="text-lg sm:text-xl md:text-2xl font-display text-white uppercase pixel-text-glow">
+          <span className="glitch" data-text="Education & Experience">
+            Education &amp; Experience
+          </span>
         </h2>
         <div className="pixel-divider w-20 mx-auto mt-4" aria-hidden="true" />
         <p className="text-sm sm:text-base text-slate-400 max-w-xl mt-3">

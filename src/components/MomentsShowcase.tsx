@@ -68,10 +68,14 @@ export default function MomentsShowcase() {
       <div className="flex flex-col items-center text-center mb-12 relative z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-xs font-bold text-pink-300 mb-3">
           <Camera className="w-4 h-4 text-pink-400" />
+          <span className="font-display text-[9px] tracking-wider text-purple-400/80">04</span>
+          <span className="text-slate-500/60">{"//"}</span>
           <span>Moments &bull; Life in Tech</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-white uppercase pixel-text-glow">
-          Moments
+        <h2 className="text-lg sm:text-xl md:text-2xl font-display text-white uppercase pixel-text-glow">
+          <span className="glitch" data-text="Moments">
+            Moments
+          </span>
         </h2>
         <div className="pixel-divider w-20 mx-auto mt-4" aria-hidden="true" />
         <p className="text-sm sm:text-base text-slate-400 max-w-xl mt-2.5">

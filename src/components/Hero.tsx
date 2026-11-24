@@ -4,7 +4,15 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowDown, Sparkles } from "lucide-react";
 import { GithubIcon, LeetcodeIcon } from "./SocialIcons";
+import Typewriter from "./Typewriter";
 import { portfolioData } from "@/data/portfolio";
+
+const HERO_ROLES = [
+  "AI / ML ENGINEER",
+  "DATA SYSTEMS BUILDER",
+  "LOGIC ENGINE TINKERER",
+  "PROBLEM SOLVER",
+];
 
 interface HeroProps {
   onCtaHoverChange?: (isHovered: boolean) => void;
@@ -104,9 +112,13 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
           </div>
 
           {/* Name Heading placed side-along with intro */}
-          <h1 className="font-hero text-3xl sm:text-4xl md:text-5xl xl:text-6xl text-white uppercase pixel-text-glow leading-[1.05]">
+          <h1 className="font-hero text-2xl sm:text-3xl md:text-4xl xl:text-5xl text-white uppercase pixel-text-glow">
             HI, I&apos;M <br />
-            <span className="bg-gradient-to-r from-purple-300 via-fuchsia-300 to-pink-300 bg-clip-text text-transparent">
+            <span
+              className="glitch bg-gradient-to-r from-purple-300 via-fuchsia-300 to-pink-300 bg-clip-text text-transparent"
+              data-text="KARTHAVYA"
+              title="Karthavya"
+            >
               KARTHAVYA
             </span>
           </h1>
@@ -132,6 +144,13 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
             <span className="flex items-center gap-1.5 text-purple-300 font-semibold">
               <span>⚡</span> CGPA {portfolioData.personal.cgpa}/10
             </span>
+          </div>
+
+          {/* Terminal role ticker */}
+          <div className="mt-4 flex items-center gap-2 font-mono text-sm sm:text-base text-cyan-200/90">
+            <span className="text-purple-400">&gt;_</span>
+            <span className="text-indigo-400/80">role:</span>
+            <Typewriter words={HERO_ROLES} className="text-cyan-200" />
           </div>
 
           {/* Action Buttons: 3 buttons in one div in one line below intro in phone mode (lg:hidden) */}
