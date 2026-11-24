@@ -24,9 +24,10 @@ export default function ProjectsSection() {
           <FolderGit2 className="w-3.5 h-3.5" />
           <span>Engineering Showcase</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-display font-black text-white tracking-tight uppercase">
-          Featured Projects &amp; Research
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-white uppercase pixel-text-glow">
+          Projects &amp; Research
         </h2>
+        <div className="pixel-divider w-20 mx-auto mt-4" aria-hidden="true" />
         <p className="text-sm sm:text-base text-slate-400 max-w-2xl mt-3">
           Deep dives into AI models, accessibility platforms, logic engines, and data analytics systems.
         </p>
@@ -42,7 +43,7 @@ export default function ProjectsSection() {
                 className={`relative px-4 py-2 rounded-full text-xs font-semibold tracking-wider transition-all duration-200 ${
                   isActive
                     ? "bg-purple-600 text-white shadow-md shadow-purple-600/30"
-                    : "bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/5"
+                    : "bg-indigo-400/10 text-slate-300 hover:text-white hover:bg-indigo-400/15 border border-indigo-300/10"
                 }`}
               >
                 {cat}

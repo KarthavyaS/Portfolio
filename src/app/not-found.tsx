@@ -3,12 +3,12 @@ import { ArrowLeft, Home, Compass } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-[#06070a] text-slate-100 flex flex-col items-center justify-center p-6 text-center select-none">
+    <div className="min-h-screen bg-[#070a24] text-slate-100 flex flex-col items-center justify-center p-6 text-center select-none">
       <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mb-6">
         <Compass className="w-8 h-8 text-purple-400 animate-spin" />
       </div>
 
-      <h1 className="font-display font-black text-6xl sm:text-8xl text-white tracking-tight">
+      <h1 className="font-display text-4xl sm:text-6xl text-white pixel-text-glow">
         404
       </h1>
 

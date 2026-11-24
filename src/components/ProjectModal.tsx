@@ -46,12 +46,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#0c0f17] border border-white/15 rounded-2xl shadow-2xl p-6 sm:p-8 z-10"
+          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-[#0e1235] border border-indigo-300/25 rounded-2xl shadow-2xl p-6 sm:p-8 z-10"
         >
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="absolute top-5 right-5 p-2 rounded-full bg-indigo-400/10 border border-indigo-300/20 text-slate-400 hover:text-white hover:bg-indigo-400/15 transition-colors"
             aria-label="Close modal"
           >
             <X className="w-5 h-5" />
@@ -68,7 +68,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 Case Study
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-display text-white tracking-tight">
               {project.title}
             </h2>
             <p className="text-sm font-semibold text-purple-400 mt-1">
@@ -77,7 +77,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </div>
 
           {/* My Role & Summary Banner */}
-          <div className="mt-5 p-4 rounded-xl bg-white/[0.03] border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="mt-5 p-4 rounded-xl bg-indigo-400/[0.06] border border-indigo-300/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2.5 text-xs text-slate-300">
               <User className="w-4 h-4 text-purple-400" />
               <span><strong>Role:</strong> {project.role}</span>
@@ -88,7 +88,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold text-slate-200 hover:text-white hover:bg-white/10 transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-400/10 border border-indigo-300/20 text-xs font-semibold text-slate-200 hover:text-white hover:bg-indigo-400/15 transition-all"
                 >
                   <GithubIcon className="w-3.5 h-3.5" />
                   <span>GitHub</span>
@@ -153,7 +153,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {project.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="text-xs font-medium px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-200"
+                    className="text-xs font-medium px-3 py-1.5 rounded-lg bg-indigo-400/10 border border-indigo-300/20 text-slate-200"
                   >
                     {tech}
                   </span>

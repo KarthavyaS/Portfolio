@@ -26,16 +26,17 @@ export default function ExperienceSection() {
           <GraduationCap className="w-3.5 h-3.5" />
           <span>Timeline &amp; Milestones</span>
         </div>
-        <h2 className="text-3xl sm:text-5xl font-display font-black text-white tracking-tight uppercase">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-display text-white uppercase pixel-text-glow">
           Education &amp; Experience
         </h2>
+        <div className="pixel-divider w-20 mx-auto mt-4" aria-hidden="true" />
         <p className="text-sm sm:text-base text-slate-400 max-w-xl mt-3">
           Academic foundation at Rajalakshmi Engineering College, published research, and hackathon accomplishments.
         </p>
       </div>
 
       {/* Vertical Timeline */}
-      <div className="relative border-l border-white/10 ml-4 sm:ml-32 md:ml-40 space-y-12">
+      <div className="relative border-l border-indigo-300/20 ml-4 sm:ml-32 md:ml-40 space-y-12">
         {portfolioData.experience.map((item, index) => (
           <motion.div
             key={index}
@@ -46,7 +47,7 @@ export default function ExperienceSection() {
             className="relative pl-6 sm:pl-8 group"
           >
             {/* Timeline Node Dot */}
-            <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0c0f17] border border-purple-500/50 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:border-purple-400 transition-transform">
+            <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0e1235] border border-purple-500/50 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:border-purple-400 transition-transform">
               {getIcon(item.type)}
             </div>
 
@@ -57,8 +58,12 @@ export default function ExperienceSection() {
               </span>
             </div>
 
-            {/* Card Content */}
-            <div className="p-6 rounded-2xl bg-[#0c0f17]/90 border border-white/10 group-hover:border-purple-500/40 transition-colors shadow-lg">
+            {/* Card Content with Touch Highlight & Pop Animation */}
+            <motion.div
+              whileHover={{ scale: 1.015 }}
+              whileTap={{ scale: 0.985 }}
+              className="p-6 rounded-2xl bg-[#0e1235]/90 border border-indigo-300/20 group-hover:border-purple-500/40 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10 active:border-purple-400 transition-all duration-300 cursor-pointer"
+            >
               {/* Mobile Period */}
               <div className="sm:hidden flex items-center gap-2 text-xs font-bold text-purple-400 font-mono mb-2">
                 <Calendar className="w-3.5 h-3.5" />
@@ -69,7 +74,7 @@ export default function ExperienceSection() {
                 <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight">
                   {item.title}
                 </h3>
-                <span className="text-[11px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-slate-300">
+                <span className="text-[11px] uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-full bg-indigo-400/10 border border-indigo-300/20 text-slate-300">
                   {item.type}
                 </span>
               </div>
@@ -88,13 +93,13 @@ export default function ExperienceSection() {
                 {item.badges.map((b) => (
                   <span
                     key={b}
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-md bg-white/5 border border-white/5 text-slate-300"
+                    className="text-[11px] font-medium px-2.5 py-1 rounded-md bg-indigo-400/10 border border-indigo-300/10 text-slate-300"
                   >
                     {b}
                   </span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </motion.div>
         ))}
 
@@ -106,7 +111,7 @@ export default function ExperienceSection() {
           transition={{ duration: 0.5 }}
           className="relative pl-6 sm:pl-8 group"
         >
-          <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0c0f17] border border-blue-500/50 flex items-center justify-center shadow-lg">
+          <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0e1235] border border-blue-500/50 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:border-blue-400 transition-transform">
             <GraduationCap className="w-5 h-5 text-blue-400" />
           </div>
 
@@ -116,12 +121,16 @@ export default function ExperienceSection() {
             </span>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0c0f17]/90 border border-white/10 shadow-lg">
+          <motion.div
+            whileHover={{ scale: 1.015 }}
+            whileTap={{ scale: 0.985 }}
+            className="p-6 rounded-2xl bg-[#0e1235]/90 border border-indigo-300/20 group-hover:border-purple-500/40 hover:border-purple-500/40 hover:shadow-xl hover:shadow-purple-500/10 active:border-purple-400 transition-all duration-300 cursor-pointer"
+          >
             <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight mb-2">
               Schooling &amp; Academic Honors
             </h3>
             <div className="space-y-3 text-xs sm:text-sm text-slate-300">
-              <div className="flex justify-between items-center pb-2 border-b border-white/5">
+              <div className="flex justify-between items-center pb-2 border-b border-indigo-300/10">
                 <div>
                   <div className="font-semibold text-white">Higher Secondary Certificate (HSC)</div>
                   <div className="text-slate-400 text-xs">Ananthavalli Mat Hr Sec School (2022)</div>
@@ -140,7 +149,7 @@ export default function ExperienceSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

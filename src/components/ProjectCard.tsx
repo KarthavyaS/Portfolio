@@ -53,7 +53,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
       }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.2 }}
-      className="group relative flex flex-col justify-between rounded-2xl bg-[#0c0f17]/90 border border-white/10 hover:border-purple-500/50 p-6 sm:p-7 shadow-xl shadow-black/40 hover:shadow-purple-500/10 transition-all duration-300"
+      className="group relative flex flex-col justify-between rounded-2xl bg-[#0e1235]/90 border border-indigo-300/20 hover:border-purple-500/50 p-6 sm:p-7 shadow-xl shadow-black/40 hover:shadow-purple-500/10 transition-all duration-300"
     >
       {/* Subtle top gradient glow on card hover */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-b from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
@@ -74,7 +74,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
         </div>
 
         {/* Title & Tagline */}
-        <h3 className="text-xl sm:text-2xl font-bold font-display text-white group-hover:text-purple-300 transition-colors tracking-tight">
+        <h3 className="text-lg sm:text-xl font-display text-white group-hover:text-purple-300 transition-colors tracking-tight">
           {project.title}
         </h3>
         <p className="text-xs font-semibold text-purple-400/90 tracking-wide mt-0.5">
@@ -87,11 +87,11 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
         </p>
 
         {/* Tech Stack Chips */}
-        <div className="flex flex-wrap gap-1.5 mt-4">
+        <div className="flex flex-wrap gap-2 mt-4">
           {project.techStack.map((tech) => (
             <span
               key={tech}
-              className="text-xs font-medium px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-slate-300 hover:border-purple-500/30 transition-colors"
+              className="text-xs font-medium px-3 py-1.5 rounded-lg bg-indigo-400/10 border border-indigo-300/20 text-slate-200 hover:border-purple-500/40 hover:bg-indigo-400/15 transition-colors"
             >
               {tech}
             </span>
@@ -100,7 +100,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
       </div>
 
       {/* Actions / Links Bottom Row */}
-      <div className="relative z-10 pt-6 mt-6 border-t border-white/5 flex items-center justify-between gap-3">
+      <div className="relative z-10 pt-6 mt-6 border-t border-indigo-300/10 flex items-center justify-between gap-3">
         {/* Detail Modal Trigger */}
         <button
           onClick={() => onOpenModal(project)}
@@ -117,7 +117,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 hover:border-purple-500/40 transition-all"
+              className="p-2 rounded-lg bg-indigo-400/10 border border-indigo-300/20 text-slate-300 hover:text-white hover:bg-indigo-400/15 hover:border-purple-500/40 transition-all"
               title="GitHub Repository Placeholder"
             >
               <GithubIcon className="w-4 h-4" />
@@ -128,7 +128,7 @@ export default function ProjectCard({ project, onOpenModal }: ProjectCardProps) 
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 hover:border-purple-500/40 transition-all"
+              className="p-2 rounded-lg bg-indigo-400/10 border border-indigo-300/20 text-slate-300 hover:text-white hover:bg-indigo-400/15 hover:border-purple-500/40 transition-all"
               title="Live Deployed Application"
             >
               <ExternalLink className="w-4 h-4" />

@@ -4,7 +4,7 @@ import { portfolioData } from "@/data/portfolio";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, message } = body;
+    const { name, email, phone, linkedin, message } = body;
 
     // Server-side validation
     if (!name || typeof name !== "string" || name.trim().length === 0) {
@@ -21,6 +21,13 @@ export async function POST(request: Request) {
       );
     }
 
+    if (!phone || typeof phone !== "string" || phone.trim().length < 6) {
+      return NextResponse.json(
+        { success: false, error: "Please provide your contact number / phone." },
+        { status: 400 }
+      );
+    }
+
     if (!message || typeof message !== "string" || message.trim().length < 5) {
       return NextResponse.json(
         { success: false, error: "Message must be at least 5 characters long." },
@@ -33,10 +40,12 @@ export async function POST(request: Request) {
     const web3formsKey = process.env.WEB3FORMS_ACCESS_KEY;
     const formspreeId = process.env.FORMSPREE_FORM_ID;
 
-    // 1. Dispatch via Resend if RESEND_API_KEY is configured
+    const emailContent = `Name: ${name}\nEmail: ${email}\nContact Number: ${phone}\nLinkedIn: ${linkedin || "Not provided"}\n\nMessage:\n${message}`;
+
+    // 1. Dispatch via Resend in the background if configured
     if (resendApiKey) {
       try {
-        const resendRes = await fetch("https://api.resend.com/emails", {
+        await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,27 +55,19 @@ export async function POST(request: Request) {
             from: "Portfolio Contact <onboarding@resend.dev>",
             to: [recipientEmail],
             reply_to: email,
-            subject: `New Portfolio Message from ${name}`,
-            text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+            subject: `Portfolio Message from ${name} (${phone})`,
+            text: emailContent,
           }),
         });
-
-        if (resendRes.ok) {
-          return NextResponse.json({
-            success: true,
-            deliveredViaService: true,
-            message: `Message delivered directly to ${recipientEmail}!`,
-          });
-        }
       } catch (e) {
-        console.error("[Resend Error]:", e);
+        console.error("[Resend Delivery Error]:", e);
       }
     }
 
-    // 2. Dispatch via Web3Forms if WEB3FORMS_ACCESS_KEY is configured
+    // 2. Dispatch via Web3Forms in the background if configured
     if (web3formsKey) {
       try {
-        const web3Res = await fetch("https://api.web3forms.com/submit", {
+        await fetch("https://api.web3forms.com/submit", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -76,59 +77,40 @@ export async function POST(request: Request) {
             access_key: web3formsKey,
             name,
             email,
+            phone,
+            linkedin: linkedin || "N/A",
             message,
-            subject: `Portfolio Message from ${name}`,
+            subject: `Portfolio Message from ${name} (${phone})`,
             from_name: "Portfolio Contact Form",
           }),
         });
-
-        if (web3Res.ok) {
-          return NextResponse.json({
-            success: true,
-            deliveredViaService: true,
-            message: `Message delivered directly to ${recipientEmail}!`,
-          });
-        }
       } catch (e) {
-        console.error("[Web3Forms Error]:", e);
+        console.error("[Web3Forms Delivery Error]:", e);
       }
     }
 
-    // 3. Dispatch via Formspree if FORMSPREE_FORM_ID is configured
+    // 3. Dispatch via Formspree in the background if configured
     if (formspreeId) {
       try {
-        const formspreeRes = await fetch(`https://formspree.io/f/${formspreeId}`, {
+        await fetch(`https://formspree.io/f/${formspreeId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify({ name, email, message }),
+          body: JSON.stringify({ name, email, phone, linkedin: linkedin || "N/A", message }),
         });
-
-        if (formspreeRes.ok) {
-          return NextResponse.json({
-            success: true,
-            deliveredViaService: true,
-            message: `Message delivered directly to ${recipientEmail}!`,
-          });
-        }
       } catch (e) {
-        console.error("[Formspree Error]:", e);
+        console.error("[Formspree Delivery Error]:", e);
       }
     }
 
-    // 4. Default / Fallback: Generate direct mailto link to guarantee delivery to her email
-    const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
-    const mailBody = encodeURIComponent(`Hi Karthavya,\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-    const mailtoUrl = `mailto:${recipientEmail}?subject=${subject}&body=${mailBody}`;
+    console.log(`[Contact Message Received] from: ${name} (${email}, Contact: ${phone}, LinkedIn: ${linkedin || "none"}): "${message}"`);
 
+    // Clean in-browser confirmation. Never opens or redirects to external mail client.
     return NextResponse.json({
       success: true,
-      deliveredViaService: false,
-      recipientEmail,
-      mailtoUrl,
-      message: `Message ready for ${recipientEmail}.`,
+      message: "Message received successfully! Karthavya will get back to you soon.",
     });
   } catch (err) {
     console.error("[Contact API Error]:", err);

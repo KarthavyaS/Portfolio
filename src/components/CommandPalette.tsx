@@ -168,10 +168,10 @@ export default function CommandPalette({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: -20 }}
           transition={{ duration: 0.15 }}
-          className="relative w-full max-w-xl bg-[#0c0f17] border border-white/15 rounded-2xl shadow-2xl overflow-hidden z-10"
+          className="relative w-full max-w-xl bg-[#0e1235] border border-indigo-300/25 rounded-2xl shadow-2xl overflow-hidden z-10"
         >
           {/* Search Input */}
-          <div className="flex items-center px-4 py-3.5 border-b border-white/10 gap-3">
+          <div className="flex items-center px-4 py-3.5 border-b border-indigo-300/20 gap-3">
             <Search className="w-5 h-5 text-slate-400 shrink-0" />
             <input
               type="text"
@@ -183,7 +183,7 @@ export default function CommandPalette({
             />
             <button
               onClick={onClose}
-              className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+              className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-indigo-400/10 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -200,10 +200,10 @@ export default function CommandPalette({
                 <button
                   key={action.id}
                   onClick={action.perform}
-                  className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/5 transition-colors text-left group"
+                  className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-indigo-400/10 transition-colors text-left group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-white/5 border border-white/10 group-hover:border-purple-500/40 transition-colors">
+                    <div className="p-2 rounded-lg bg-indigo-400/10 border border-indigo-300/20 group-hover:border-purple-500/40 transition-colors">
                       {action.icon}
                     </div>
                     <div>
@@ -224,12 +224,12 @@ export default function CommandPalette({
           </div>
 
           {/* Palette Footer */}
-          <div className="px-4 py-2.5 bg-black/40 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400">
+          <div className="px-4 py-2.5 bg-black/40 border-t border-indigo-300/10 flex items-center justify-between text-[11px] text-slate-400">
             <div className="flex items-center gap-3">
-              <span>Navigation: <kbd className="bg-white/10 px-1.5 py-0.5 rounded text-[10px]">↑</kbd> <kbd className="bg-white/10 px-1.5 py-0.5 rounded text-[10px]">↓</kbd></span>
-              <span>Open: <kbd className="bg-white/10 px-1.5 py-0.5 rounded text-[10px]">Enter</kbd></span>
+              <span>Navigation: <kbd className="bg-indigo-400/15 px-1.5 py-0.5 rounded text-[10px]">↑</kbd> <kbd className="bg-indigo-400/15 px-1.5 py-0.5 rounded text-[10px]">↓</kbd></span>
+              <span>Open: <kbd className="bg-indigo-400/15 px-1.5 py-0.5 rounded text-[10px]">Enter</kbd></span>
             </div>
-            <span>Close: <kbd className="bg-white/10 px-1.5 py-0.5 rounded text-[10px]">Esc</kbd></span>
+            <span>Close: <kbd className="bg-indigo-400/15 px-1.5 py-0.5 rounded text-[10px]">Esc</kbd></span>
           </div>
         </motion.div>
       </div>

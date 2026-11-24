@@ -1,23 +1,45 @@
 @import "tailwindcss";
 
+@theme inline {
+  /* One readable pixel-text face for the entire site */
+  --font-sans: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Pixelify Sans", ui-monospace, SFMono-Regular, monospace;
+
+  /* Squared-off, 8-bit corners */
+  --radius-md: 2px;
+  --radius-lg: 3px;
+  --radius-xl: 4px;
+  --radius-2xl: 5px;
+  --radius-3xl: 6px;
+
+  /* Hard, offset pixel shadows instead of soft blurs */
+  --shadow-md: 3px 3px 0 0 rgba(4, 6, 26, 0.85);
+  --shadow-lg: 4px 4px 0 0 rgba(4, 6, 26, 0.9);
+  --shadow-xl: 5px 5px 0 0 rgba(4, 6, 26, 0.92);
+  --shadow-2xl: 7px 7px 0 0 rgba(4, 6, 26, 0.95);
+}
+
 :root {
-  --background: #06070a;
-  --foreground: #f3f4f6;
-  --surface: #0e1118;
-  --surface-border: #1c2230;
-  --accent-purple: #9333ea;
+  --background: #070a24;
+  --background-deep: #05071b;
+  --foreground: #e8e6ff;
+  --surface: #0e1235;
+  --surface-raised: #131946;
+  --surface-border: #262c60;
+  --accent-purple: #a855f7;
   --accent-pink: #ec4899;
   --accent-indigo: #6366f1;
+  --accent-cyan: #67e8f9;
+  --star: #cdd6ff;
 }
 
 .light {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f4f3ff;
+  --background-deep: #ecebff;
+  --foreground: #12142e;
   --surface: #ffffff;
-  --surface-border: #e2e8f0;
-  --accent-purple: #7e22ce;
-  --accent-pink: #db2777;
-  --accent-indigo: #4f46e5;
+  --surface-raised: #f8f7ff;
+  --surface-border: #d9d6f5;
 }
 
 html {
@@ -27,46 +49,142 @@ html {
 
 body {
   background-color: var(--background);
+  background-image:
+    /* 4px checkerboard dither — the pixel texture over everything */
+    repeating-conic-gradient(
+      rgba(205, 214, 255, 0.022) 0% 25%,
+      transparent 0% 50%
+    ),
+    radial-gradient(ellipse 90% 55% at 50% -12%, rgba(88, 60, 200, 0.3), transparent 70%),
+    radial-gradient(ellipse 70% 40% at 85% 105%, rgba(236, 72, 153, 0.12), transparent 70%),
+    linear-gradient(180deg, #070a24 0%, #060822 50%, #05071b 100%);
+  background-size: 4px 4px, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.7;
+  letter-spacing: 0;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar — pixel-styled */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #080a0f;
+  background: #05071b;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f293d;
-  border-radius: 4px;
+  background: #2b3170;
+  border-radius: 0;
+  border: 1px solid #3b4390;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #3f4899;
 }
 
-/* Typography helper */
+/* Display type — same pixel face as body, just bolder and tighter */
 .font-display {
-  font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, "Impact", sans-serif;
+  font-family: "Pixelify Sans", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+}
+
+.font-hero {
+  font-family: "Pixelify Sans", ui-monospace, monospace;
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  line-height: 1.1;
+}
+
+p {
+  line-height: 1.75;
+}
+
+/* Notched, blocky 8-bit corners (border stays clipped like a sprite) */
+.pixel-corners {
+  clip-path: polygon(
+    0 5px, 5px 5px, 5px 0,
+    calc(100% - 5px) 0, calc(100% - 5px) 5px, 100% 5px,
+    100% calc(100% - 5px), calc(100% - 5px) calc(100% - 5px), calc(100% - 5px) 100%,
+    5px 100%, 5px calc(100% - 5px), 0 calc(100% - 5px)
+  );
+}
+
+/* Recruiter / ATS view — plain Times New Roman for scannability and print */
+.recruiter-ats,
+.recruiter-ats * {
+  font-family: "Times New Roman", Times, serif;
+  letter-spacing: normal;
+}
+
+/* Stepped pixel divider used under arcade labels */
+.pixel-divider {
+  height: 4px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(192, 132, 252, 0.8) 0 4px,
+    rgba(244, 114, 182, 0.8) 4px 8px,
+    transparent 8px 12px
+  );
+}
+
+/* Soft purple → pink gradient text */
+.text-gradient-purple {
+  background: linear-gradient(135deg, #d8b4fe 0%, #f9a8d4 60%, #fbcfe8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Glow effects */
 .glow-gradient-pill {
-  background: linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #f97316 100%);
-  box-shadow: 0 0 25px -4px rgba(236, 72, 153, 0.45), 0 0 10px -2px rgba(168, 85, 247, 0.3);
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 55%, #f472b6 100%);
+  box-shadow:
+    0 0 0 2px rgba(10, 8, 36, 0.9),
+    4px 4px 0 0 rgba(10, 8, 36, 0.9),
+    0 0 28px -6px rgba(236, 72, 153, 0.6);
 }
 
 .glow-gradient-pill:hover {
-  box-shadow: 0 0 35px -2px rgba(236, 72, 153, 0.7), 0 0 15px 0 rgba(168, 85, 247, 0.5);
+  box-shadow:
+    0 0 0 2px rgba(10, 8, 36, 0.9),
+    4px 4px 0 0 rgba(10, 8, 36, 0.9),
+    0 0 38px -4px rgba(236, 72, 153, 0.85);
 }
 
-.text-gradient-purple {
-  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Hard pixel panel frame */
+.pixel-panel {
+  box-shadow:
+    0 0 0 2px rgba(167, 139, 250, 0.22),
+    6px 6px 0 0 rgba(4, 6, 26, 0.9);
+}
+
+.pixel-text-glow {
+  text-shadow:
+    0 2px 0 rgba(18, 12, 54, 0.9),
+    0 0 22px rgba(168, 85, 247, 0.45);
+}
+
+/* Pixel stars */
+.pixel-star {
+  position: absolute;
+  animation-name: pixel-twinkle;
+  animation-timing-function: steps(1, end);
+  animation-iteration-count: infinite;
+  will-change: opacity;
+}
+
+/* CRT scanlines */
+.crt-lines {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(214, 219, 255, 0.05) 0px,
+    rgba(214, 219, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
 }
 
 /* Infinite Marquee Animations */
@@ -98,4 +216,71 @@ body {
   display: flex;
   width: max-content;
   animation: marquee-reverse 32s linear infinite;
+}
+
+/* 8-bit animations */
+@keyframes pixel-twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes pixel-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-4px);
+  }
+  75% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes pixel-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes pixel-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.animate-pixel-float {
+  animation: pixel-float 3s steps(4, end) infinite;
+}
+
+.animate-pixel-blink {
+  animation: pixel-blink 1.2s steps(1, end) infinite;
+}
+
+.animate-pixel-scan {
+  animation: pixel-scan 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .animate-pixel-float,
+  .animate-pixel-blink,
+  .animate-pixel-scan,
+  .pixel-star {
+    animation: none !important;
+  }
 }

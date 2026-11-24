@@ -36,6 +36,16 @@ export interface SkillGroup {
   skills: string[];
 }
 
+export interface GalleryMoment {
+  id: string;
+  title: string;
+  category: 'Solo & Honors' | 'Team Hackathons' | 'Moments';
+  caption: string;
+  image: string;
+  tag: string;
+  details: string;
+}
+
 export const portfolioData = {
   personal: {
     name: 'Karthavya S',
@@ -45,14 +55,17 @@ export const portfolioData = {
     subheadline: 'Computer Science & Engineering Student @ REC Chennai',
     introHeadline: 'Curious mind. Creative coder. AI enthusiast.',
     introText:
-      "I'm passionate about exploring the world of AI/ML, experimenting with AI tools, and turning ideas into intelligent solutions. With Java and Python as my programming foundations and a keen interest in DSA and problem-solving, I enjoy learning, building, experimenting, and bringing technology to life.",
+      "I'm passionate about exploring the world of AI, and turning ideas into intelligent solutions. With Java and Python as my programming foundations and a keen interest in DSA and problem-solving, I enjoy learning, building, experimenting, and bringing technology to life.",
+    formalHeadline: 'Computer Science & Engineering Undergraduate (B.E. 2024–2028) | AI/ML & Software Engineering',
+    formalSummary:
+      'Computer Science and Engineering undergraduate at Rajalakshmi Engineering College with a CGPA of 9.07/10, passionate about Artificial Intelligence, Machine Learning, and Software Development. Proficient in Java and Python, with a strong foundation in Data Structures and Algorithms, problem-solving, and database management. Interested in building intelligent, scalable applications, exploring emerging AI technologies, and developing practical solutions through full-stack development, machine learning, and research-driven projects. A continuous learner with a keen interest in innovation and technology.',
     bio: "AI and Data Science enthusiast with strong interest in Machine Learning, intelligent digital systems, and user-centered technology solutions. Passionate about building analytics-driven applications and applying AI techniques to solve real-world problems through innovative and impactful digital experiences.",
     location: 'Chennai, Tamil Nadu, India',
     cgpa: '9.07',
-    phone: '+91-8015338169',
     email: 'karthavya.s.2024.cse@rajalakshmi.edu.in',
     github: 'https://github.com/KarthavyaS',
     linkedin: 'https://www.linkedin.com/in/karthavya-s-7a170332b',
+    leetcode: 'https://leetcode.com/u/karthavya_s/',
     resumeUrl: '/resume.pdf',
     avatarUrl: '/avatar.png',
   },
@@ -60,10 +73,26 @@ export const portfolioData = {
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
+    { label: 'Moments', href: '#moments' },
     { label: 'Contact', href: '#contact' },
   ],
   projectCategories: ['All', 'AI & Machine Learning', 'Accessibility & Research', 'Data & Analytics', 'AI & Systems'],
   projects: [
+    {
+      id: 'apix',
+      title: 'Airfare Price Index (APIx)',
+      tagline: 'India Aviation Observatory & Analytics Engine',
+      category: 'Data & Analytics',
+      summary: 'Comprehensive aviation analytics observatory tracking and predicting airfare price fluctuations across Indian domestic flight routes.',
+      problem: 'Extreme volatility in dynamic airline ticket pricing creates opaque market conditions for travelers and aviation analysts.',
+      approach: 'Engineered real-time data pipelines and statistical volatility scoring across key Indian domestic routes (DEL, BOM, BLR, MAA) with route-level anomaly detection and interactive dashboards.',
+      result: 'Enabled transparent route-level price tracking, fare anomaly detection, and predictive purchasing windows.',
+      techStack: ['Python', 'Data Analytics', 'Pandas', 'NumPy', 'Next.js', 'TypeScript', 'REST APIs', 'Tailwind CSS'],
+      role: 'Lead Analytics & Full-Stack Developer',
+      githubUrl: 'https://github.com/KarthavyaS/apix-aviation',
+      liveUrl: 'https://apix-frontend-2yuo.onrender.com/',
+      hasPlaceholder: true,
+    },
     {
       id: 'unscramble',
       title: 'Unscramble',
@@ -77,21 +106,6 @@ export const portfolioData = {
       role: 'AI & Accessibility Researcher & Developer',
       githubUrl: 'https://github.com/KarthavyaS/unscramble',
       liveUrl: 'https://unscramble-demo.vercel.app',
-      hasPlaceholder: true,
-    },
-    {
-      id: 'apix',
-      title: 'Airfare Price Index (APIx)',
-      tagline: 'India Aviation Observatory & Analytics Engine',
-      category: 'Data & Analytics',
-      summary: 'Comprehensive aviation analytics observatory tracking and predicting airfare price fluctuations across Indian domestic flight routes.',
-      problem: 'Extreme volatility in dynamic airline ticket pricing creates opaque market conditions for travelers and aviation analysts.',
-      approach: 'Engineered real-time data pipelines and statistical volatility scoring across key Indian domestic routes (DEL, BOM, BLR, MAA) with route-level anomaly detection and interactive dashboards.',
-      result: 'Enabled transparent route-level price tracking, fare anomaly detection, and predictive purchasing windows.',
-      techStack: ['Python', 'Data Analytics', 'Pandas', 'NumPy', 'Next.js', 'TypeScript', 'REST APIs', 'Tailwind CSS'],
-      role: 'Lead Analytics & Full-Stack Developer',
-      githubUrl: 'https://github.com/KarthavyaS/apix-aviation',
-      liveUrl: 'https://apix-observatory.vercel.app',
       hasPlaceholder: true,
     },
     {
@@ -125,22 +139,86 @@ export const portfolioData = {
       hasPlaceholder: true,
     },
   ] as Project[],
+  galleryMoments: [
+    // 1. SOLO PICTURES FIRST
+    {
+      id: 'solo-thumbsup',
+      title: 'Hackathon Energy & Focus',
+      category: 'Solo & Honors',
+      caption: 'Geared up and ready to solve tough engineering challenges with a smile.',
+      image: '/gallery/solo_thumbsup.jpg',
+      tag: 'Solo Focus',
+      details: 'Pre-hackathon preparation before entering 24+ hours of intense prototyping and code sprints.',
+    },
+    {
+      id: 'solo-tcs-award',
+      title: 'Rank 1 — TCS AI & Cloud Fun Challenge',
+      category: 'Solo & Honors',
+      caption: 'Felicitated on stage by TCS senior leadership for securing Rank 1 (6,772 points) in the fun Quiz.',
+      image: '/gallery/solo_tcs_award.jpg',
+      tag: 'Rank 1 Champion',
+      details: 'Secured the #1 leaderboard position on the big stage at the TCS AI-powered Quiz challenge.',
+    },
+    // 2. TEAM PICTURES
+    {
+      id: 'team-alchemists',
+      title: 'Team Alchemists — Smart Automation',
+      category: 'Team Hackathons',
+      caption: 'Panel 03 prototype review with university jury and mentors.',
+      image: '/gallery/team_alchemists.jpg',
+      tag: 'Team Hackathon',
+      details: 'Collaborating on smart automation algorithms and presenting to engineering evaluation panels.',
+    },
+    {
+      id: 'team-lab-session',
+      title: 'Technical Internship Sprints',
+      category: 'Team Hackathons',
+      caption: 'Working alongside fellow developers during my technical internship, building software and training ML models.',
+      image: '/gallery/team_lab_session.jpg',
+      tag: 'Internship Experience',
+      details: 'Hands-on technical internship experience collaborating with engineering teams, developing full-stack software, and building AI implementations.',
+    },
+    {
+      id: 'team-devshouse-arena',
+      title: 'DevsHouse Arena — Table 12',
+      category: 'Team Hackathons',
+      caption: 'Racing against the clock with Team Powerhouse at VIT Chennai.',
+      image: '/gallery/team_devshouse_arena.jpg',
+      tag: 'VIT GDG Hackathon',
+      details: 'Surrounded by passionate developers in the grand arena, shipping full-stack prototypes overnight.',
+    },
+    // 3. MOMENTS PICTURES
+    {
+      id: 'moment-sih-timer',
+      title: 'SIH 2026: 24 Hours. 0 Sleep. 01 Big Idea.',
+      category: 'Moments',
+      caption: 'The iconic 24-hour countdown clock at Smart India Hackathon internal selections.',
+      image: '/gallery/moment_sih_timer.jpg',
+      tag: 'Internal Hackathon Winners',
+      details: 'Round 2 internal selections for Smart India Hackathon — winning the internal hackathon through perseverance, technical execution, and teamwork.',
+    },
+    {
+      id: 'moment-hacker-badge',
+      title: 'Official DevsHouse Hacker Credential',
+      category: 'Moments',
+      caption: 'Google Developer Groups On Campus VITC — Table 12, Team Powerhouse.',
+      image: '/gallery/moment_hacker_badge.jpg',
+      tag: 'Hacker Credential',
+      details: 'Official hacker pass from DevsHouse 26 celebrating innovation, teamwork, and rapid delivery.',
+    },
+  ] as GalleryMoment[],
   skillGroups: [
     {
-      name: 'Languages',
-      skills: ['Java', 'Python', 'TypeScript', 'JavaScript', 'C', 'SQL'],
+      name: 'Languages & Frameworks',
+      skills: ['Java', 'Python', 'JavaScript', 'C', 'SQL', 'FastAPI', 'Pygame', 'JDBC', 'Swing', 'Operating Systems'],
     },
     {
       name: 'AI & Machine Learning',
-      skills: ['Machine Learning', 'NLP', 'Symbolic Logic', 'Forward & Backward Chaining', 'Resolution Refutation', 'Scikit-learn', 'PyTorch', 'AI APIs'],
+      skills: ['Machine Learning', 'Deep Learning', 'Natural Language Processing (NLP)', 'Artificial Intelligence', 'Scikit-learn', 'PyTorch', 'AI APIs'],
     },
     {
       name: 'Data & Analytics',
-      skills: ['Pandas', 'NumPy', 'Matplotlib', 'Power BI', 'Excel', 'Statistical Analysis', 'EDA'],
-    },
-    {
-      name: 'Web & Systems',
-      skills: ['Next.js', 'React', 'Tailwind CSS', 'FastAPI', 'Pygame', 'JDBC', 'Swing', 'Operating Systems'],
+      skills: ['Pandas', 'NumPy', 'Matplotlib', 'Excel'],
     },
     {
       name: 'Tools & Practices',
@@ -186,12 +264,12 @@ export const portfolioData = {
       badges: ['CGPA 9.07 / 10', 'Computer Science', 'Chennai, India'],
     },
     {
-      title: 'Smart India Hackathon (SIH 2026) — Internal Shortlisted',
+      title: 'Smart India Hackathon (SIH 2026) — Internal Hackathon Winners',
       organization: 'Rajalakshmi Engineering College — SIH Internal Hackathon',
       period: '2026',
       type: 'Hackathon',
-      description: 'Shortlisted in the SIH 2026 internal college hackathon selection for high-impact innovation and technical architecture.',
-      badges: ['SIH 2026', 'Shortlisted', 'Smart India Hackathon'],
+      description: 'Internal Hackathon Winners in the SIH 2026 hackathon selection for high-impact innovation and technical architecture.',
+      badges: ['SIH 2026', 'Internal Winners', 'Smart India Hackathon'],
     },
     {
       title: 'VIT GDG 2026 Hackathon',
