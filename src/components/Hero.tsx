@@ -8,8 +8,6 @@ import Typewriter from "./Typewriter";
 import { portfolioData } from "@/data/portfolio";
 
 const HERO_ROLES = [
-  "AI / ML ENGINEER",
-  "DATA SYSTEMS BUILDER",
   "LOGIC ENGINE TINKERER",
   "PROBLEM SOLVER",
 ];
