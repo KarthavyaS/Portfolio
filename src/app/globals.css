@@ -146,10 +146,10 @@ p {
   );
 }
 
-/* Recruiter / ATS view — plain Times New Roman for scannability and print */
+/* Recruiter / ATS view — plain Arial for scannability and print */
 .recruiter-ats,
 .recruiter-ats * {
-  font-family: "Times New Roman", Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
   letter-spacing: normal;
 }
 
@@ -214,24 +214,19 @@ p {
   content: attr(data-text);
   position: absolute;
   inset: 0;
-  opacity: 0;
   pointer-events: none;
   background: none;
   -webkit-background-clip: border-box;
   -webkit-text-fill-color: currentColor;
 }
 
-.glitch:hover::before,
-.glitch:focus-visible::before,
-.glitch.is-glitching::before {
+.glitch::before {
   opacity: 0.85;
   color: #67e8f9;
   animation: glitch-slice 0.5s steps(2, end) infinite;
 }
 
-.glitch:hover::after,
-.glitch:focus-visible::after,
-.glitch.is-glitching::after {
+.glitch::after {
   opacity: 0.7;
   color: #f472b6;
   animation: glitch-slice-alt 0.55s steps(2, end) infinite;
@@ -643,6 +638,7 @@ body.pixel-cursor-active select {
   .glitch::before,
   .glitch::after {
     animation: none !important;
+    opacity: 0 !important;
   }
 
   .glitch-avatar::before,
