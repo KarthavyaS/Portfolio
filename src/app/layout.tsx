@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { portfolioData } from "@/data/portfolio";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://karthavya.vercel.app"),
@@ -102,6 +103,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-[#070a24] text-slate-100 selection:bg-purple-600 selection:text-white antialiased flex flex-col">
         {children}
+        <BackgroundMusic />
       </body>
     </html>
   );

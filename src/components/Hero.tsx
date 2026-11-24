@@ -286,13 +286,15 @@ export default function Hero({ onCtaHoverChange, onOpenTerminal }: HeroProps) {
               <span className="pointer-events-none absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-pink-300/60" />
               <span className="pointer-events-none absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-purple-300/60" />
 
-              {/* Avatar Image */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/avatar.png"
-                alt="3D cartoon avatar of Karthavya"
-                className="w-full h-full object-contain drop-shadow-[6px_10px_0_rgba(5,7,30,0.55)] filter"
-              />
+              {/* Avatar Image with an always-on RGB glitch */}
+              <span className="glitch-avatar w-full h-full">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/avatar.png"
+                  alt="3D cartoon avatar of Karthavya"
+                  className="w-full h-full object-contain drop-shadow-[6px_10px_0_rgba(5,7,30,0.55)] filter"
+                />
+              </span>
             </motion.div>
 
             {/* Terminal greeting beside the avatar */}

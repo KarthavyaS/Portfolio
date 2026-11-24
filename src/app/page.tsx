@@ -16,6 +16,7 @@ import PixelParticles from "@/components/PixelParticles";
 import PixelCursor from "@/components/PixelCursor";
 import BootIntro from "@/components/BootIntro";
 import ScrollProgress from "@/components/ScrollProgress";
+import PageTransition from "@/components/PageTransition";
 
 export default function Home() {
   const [recruiterMode, setRecruiterMode] = useState(false);
@@ -107,6 +108,9 @@ export default function Home() {
 
       {/* Bottom HUD: run progress + score */}
       <ScrollProgress />
+
+      {/* Curtain sweep between sections when navigating */}
+      <PageTransition />
     </div>
   );
 }
